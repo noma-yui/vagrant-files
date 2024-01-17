@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "bento/ubuntu-22.04"
+  config.vm.box_version = "202309.08.0"
+  
+  config.vm.provider "virtualbox" do |v|
+    #v.gui = true
+    v.gui = false
+  end
+  #####################################
+  config.vm.define "my1c" do |mymachine|
+    mymachine.vm.hostname = "my1c"
+    mymachine.vm.provision "shell", inline: "apt-get update"
+    
+    # needrestart automatically restart daemon
+    mymachine.vm.provision "shell", inline: "echo \"\\\$nrconf{restart} = 'a';\" | tee /etc/needrestart/conf.d/50-autorestart.conf"
+    
+    # set locale C.UTF-8
+    #mymachine.vm.provision "shell", inline: "localectl set-locale C.UTF-8"
+    mymachine.vm.provision "shell", inline: "localectl set-locale C"
+    
+    # install postgresql
+    mymachine.vm.provision "shell", inline: "apt-get install -y postgresql-all"
+  end
+  #####################################
+
+
+end
