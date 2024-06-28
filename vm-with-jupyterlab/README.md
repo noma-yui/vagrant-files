@@ -10,3 +10,4 @@ Vagrantfileを適当なディレクトリに置き、```vagrant up``` をする�
 
 ホストOS（Windows）でブラウザーを開き、URLを入力するところに「localhost:8080」を入力する。
 JupyterLabの画面が出てくればよい。
+VagrantfileのあるフォルダがJupyterLabの作業ディレクトリになっている。
