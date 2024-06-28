@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  
+    config.vm.box = "bento/ubuntu-22.04"
+    config.vm.box_version = "202309.08.0"
+    
+    config.vm.provider "virtualbox" do |v|
+      #v.gui = true
+      v.gui = false
+    end
+    #####################################
+    config.vm.define "my1" do |mymachine|
+        mymachine.vm.hostname = "my1"
+        mymachine.vm.network "forwarded_port", guest: 8888, host: 8899 
+        
+        mymachine.vm.provision "shell", inline: "apt-get update"
+        
+        mymachine.vm.provision "docker"
+    
+        # needrestart automatically restart daemon
+        mymachine.vm.provision "shell", inline: "echo \"\\\$nrconf{restart} = 'a';\" | tee /etc/needrestart/conf.d/50-autorestart.conf"
+        
+        # create sagemath container image
+        mymachine.vm.provision "shell", inline: "docker create  --name mysage -p 8888:8888 -v /vagrant:/home/sage/host  sagemath/sagemath:latest   sage --notebook=jupyterlab --ip=* --port=8888 --IdentityProvider.token=\"\" --no-browser --allow-root"
+        
+        # run sagemath container
+        mymachine.vm.provision "shell", inline: "docker start mysage", run: "always"
+        end
+    #####################################
+
+  
+  end
+  
