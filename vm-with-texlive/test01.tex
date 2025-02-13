@@ -1,0 +1,34 @@
+\documentclass{jlreq}
+\usepackage{amsmath}
+\usepackage{minted} % code highlight
+\usepackage{xcolor}
+% 背景色の定義
+\definecolor{mybgcolor}{rgb}{0.97, 0.97, 0.97}
+
+\begin{document}
+
+このファイルは次のようにコンパイルする。
+\begin{minted}[bgcolor=mybgcolor,
+  breaklines]{bash}
+vagrant@my1:~$ lualatex -shell-escape test01.tex
+\end{minted}
+
+
+すきなように書けばいいじゃない。
+
+\begin{equation}
+  d(\xi, \eta) := \lVert\xi-\eta\rVert \, (\xi, \eta \in E)
+\end{equation}
+
+
+
+
+\begin{minted}[bgcolor=mybgcolor,
+  breaklines]{postgresql}
+SELECT column1, column2 FROM table1
+  WHERE column1 >= 10;
+\end{minted}
+
+
+
+\end{document}

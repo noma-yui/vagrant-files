@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "bento/ubuntu-24.04"
+
+  config.vm.provider "virtualbox" do |v|
+    #v.gui = true
+    v.gui = false
+    
+    v.memory = "8192"
+  end
+  #####################################
+  config.vm.define "my1" do |mymachine|
+    mymachine.vm.hostname = "my1"
+    
+    mymachine.vm.provision "shell", inline: "apt-get update"
+    
+    # install texlive
+    mymachine.vm.provision "shell", inline: "apt-get install -y texlive-full"
+    
+    # 共有フォルダ
+    #mymachine.vm.synced_folder "yourhostpath", "/home/vagrant/syncfolder", create: true
+
+
+  end
+  #####################################
+
+
+end
