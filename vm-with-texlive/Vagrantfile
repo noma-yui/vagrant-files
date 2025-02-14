@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
     mymachine.vm.provision "shell", inline: "apt-get install -y texlive-full"
     
     # 共有フォルダ
-    #mymachine.vm.synced_folder "yourhostpath", "/home/vagrant/syncfolder", create: true
+    #mymachine.vm.synced_folder "C:/Path/To/Your/Research/Note", "/home/vagrant/syncfolder", create: true
 
 
   end
